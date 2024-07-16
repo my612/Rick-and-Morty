@@ -11,7 +11,7 @@ const style = {
   height: "100vh",
 };
 
-export const Home = () => {
+export const HomePage = () => {
     useBackground("src//assets//rick.jpeg");
     return (
     <>
