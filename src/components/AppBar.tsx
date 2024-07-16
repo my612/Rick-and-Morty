@@ -50,44 +50,40 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-export function SearchAppBar() {
-  return (
-    <AppBar position="sticky">
-      <Toolbar sx={{ bgcolor: "black" }}>
-        <Typography
-          variant="h6"
-          noWrap
-          component="a"
-          href="#app-bar-with-responsive-menu"
-          sx={{
-            mr: 2,
-            display: { xs: "none", md: "flex" },
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-          }}
-        >
-          Home
-        </Typography>
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          <Button
-            sx={{ my: 2, color: "white", display: "block", font: "times" }}
-          >
-            Characters
-          </Button>
-        </Box>
-        <Search sx={{ flexGrow: 1 }}>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-      </Toolbar>
-    </AppBar>
+
+interface SearchAppBarProps {
+    inputChangehandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }
+export function SearchAppBar({inputChangehandler}:SearchAppBarProps) {
+
+    return (
+        
+            <AppBar position="sticky">
+                <Toolbar sx={{ bgcolor: "black" }}>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="primary"
+                        aria-label="open drawer"
+                        sx={{ mr: 2, color: "white" }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography sx={{flexGrow:1}}>
+                        RMDB
+                    </Typography>
+                    <Search sx={{flexGrow:1}}>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                            onChange={inputChangehandler}
+                        />
+                    </Search>
+                </Toolbar>
+            </AppBar>
+
   );
 }
