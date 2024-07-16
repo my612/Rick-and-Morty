@@ -1,6 +1,7 @@
 import { Box, Typography, Button, Container } from "@mui/material";
 import { SearchAppBar } from "../components/AppBar";
 import { useEffect } from "react";
+import useBackground from "../hooks/background";
 
 const style = {
   display: "flex",
@@ -11,19 +12,8 @@ const style = {
 };
 
 export const Home = () => {
-  useEffect(() => {
-    document.body.style.backgroundImage = 'url("src//assets//rick.jpeg")';
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.overflow = "hidden"; // Disable scrolling
-
-    // Cleanup function to reset styles when the component unmounts
-    return () => {
-      document.body.style.background = "none";
-      document.body.style.overflow = ""; // Re-enable scrolling
-    };
-  }, []);
-  return (
+    useBackground("src//assets//rick.jpeg");
+    return (
     <>
       <Box>
         <SearchAppBar />
