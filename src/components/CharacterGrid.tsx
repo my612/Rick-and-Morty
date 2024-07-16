@@ -45,7 +45,8 @@ export function CharacterGrid({ searchParameter }: CharacterGridProps) {
     }, [searchParameter]);
 
     return (
-        <div style={{}}>
+
+        <div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", alignItems: "center" }}>
                 {
                     characters.map((character) => {
