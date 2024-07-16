@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { SearchAppBar } from './components/AppBar'
 import CharacterCard from './components/CharacterCard'
@@ -16,6 +17,7 @@ function App() {
     <CharacterGrid searchParameter={searchParameter}/>
     </>
   )
+
 }
 
-export default App
+export default App;
