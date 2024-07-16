@@ -51,11 +51,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
-export function SearchAppBar() {
+interface SearchAppBarProps {
+    inputChangehandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }
+export function SearchAppBar({inputChangehandler}:SearchAppBarProps) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Toolbar sx={{ bgcolor: "black" }}>
                     <IconButton
                         size="large"
@@ -76,6 +79,7 @@ export function SearchAppBar() {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={inputChangehandler}
                         />
                     </Search>
                 </Toolbar>
