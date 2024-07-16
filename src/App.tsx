@@ -17,7 +17,7 @@ function App() {
     <CharacterGrid searchParameter={searchParameter}/>
     </>
   )
-
+}
 
 
 export default App;
