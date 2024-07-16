@@ -1,12 +1,7 @@
-import { SearchAppBar } from './components/AppBar'
+import { SearchAppBar } from "./components/AppBar";
 
 function App() {
-
-  return (
-    <>
-      <SearchAppBar/>
-    </>
-  )
+  return <>{/* <SearchAppBar/> */}</>;
 }
 
-export default App
+export default App;
