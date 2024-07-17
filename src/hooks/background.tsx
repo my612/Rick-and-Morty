@@ -13,7 +13,7 @@ const useBackground = (imageUrl: string) => {
     document.body.style.backgroundImage = `url("${imageUrl}")`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center';
-    document.body.style.overflow = 'hidden'; // Optional: Disable scrolling
+    // document.body.style.overflow = 'hidden'; // Optional: Disable scrolling
 
     // Cleanup function to revert to the original background when the component unmounts
     return () => {

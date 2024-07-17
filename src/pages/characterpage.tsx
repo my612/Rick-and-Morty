@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import { SearchAppBar } from "../components/AppBar";
-import { useEffect } from "react";
+// import { SearchAppBar } from "../components/AppBar";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Character } from "../types/characterProp";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import useBackground from "../hooks/background";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { SearchAppBar } from "../components/AppBar";
+import {
+  addFavorites,
+  readCookie,
+  removeFavorite,
+} from "../utils/cookieshelpers";
 const style = {
   display: "flex",
   flexDirection: "column",
@@ -14,13 +20,15 @@ const style = {
   height: "100vh",
 };
 export const CharacterPage = () => {
-  useBackground("src//assets//rick.jpeg");
-  //   const { id } = useParams<{ id: string }>();
+  useBackground("src///assets///rick.jpeg");
+  document.body.style.overflow = "hidden";
+  const { id } = useParams();
   const [character, setCharacter] = useState<Character>();
   useEffect(() => {
-    if (true) {
+    // console.log(id);
+    if (id) {
       axios
-        .get(`https://rickandmortyapi.com/api/character/${8}`)
+        .get(`https://rickandmortyapi.com/api/character/${id}`)
         .then((response) => {
           setCharacter(response.data);
         })
@@ -31,9 +39,23 @@ export const CharacterPage = () => {
           );
         });
     }
-  }, []);
+  }, [id]);
+
+  const [isInFavorites, setIsInFavorites] = useState(false);
+
+  useEffect(() => {
+    // Assuming `item` is the item to check and `getFavoritesList` is a function that retrieves the favorites list
+    const favoritesList = JSON.parse(readCookie("favorites") || "[]");
+    const idIsInFavorites = favoritesList.includes(id); // Ensure this comparison is valid
+    setIsInFavorites(idIsInFavorites);
+  }, [id]);
   return (
     <>
+      <SearchAppBar
+        inputChangehandler={function (e: ChangeEvent<HTMLInputElement>): void {
+          throw new Error("Function not implemented.");
+        }}
+      ></SearchAppBar>
       <Box sx={style}>
         {character ? (
           <Container
@@ -72,6 +94,36 @@ export const CharacterPage = () => {
               <Typography variant="h6">
                 <strong>Episodes:</strong> {character.episode.length}
               </Typography>
+              {!isInFavorites && (
+                <Button
+                  onClick={() => {
+                    if (id) {
+                      addFavorites(id);
+                    }
+                    let favoritesList = JSON.parse(
+                      readCookie("favorites") || "[]"
+                    );
+                    console.log(favoritesList);
+                  }}
+                >
+                  Add to favorites
+                </Button>
+              )}
+              {isInFavorites && (
+                <Button
+                  onClick={() => {
+                    if (id) {
+                      removeFavorite(id);
+                    }
+                    let favoritesList = JSON.parse(
+                      readCookie("favorites") || "[]"
+                    );
+                    console.log(favoritesList);
+                  }}
+                >
+                  Remove from favorites
+                </Button>
+              )}
             </Box>
           </Container>
         ) : (
