@@ -1,8 +1,10 @@
 import { Box, Typography, Container } from "@mui/material";
 import { SearchAppBar } from "../components/AppBar";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import useBackground from "../hooks/background";
 import { createOrUpdateCookie, deleteCookie } from "../utils/cookieshelpers";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 const style = {
   display: "flex",
   flexDirection: "column",
@@ -13,6 +15,22 @@ const style = {
 
 export const HomePage = () => {
   useBackground("src//assets//rick.jpeg");
+//   useEffect(()=>{
+//     onAuthStateChanged(auth, (user) => {
+//         if (user) {
+//           // User is signed in, see docs for a list of available properties
+//           // https://firebase.google.com/docs/reference/js/firebase.User
+//           const uid = user.uid;
+//           // ...
+//           console.log("uid", uid)
+//         } else {
+//           // User is signed out
+//           // ...
+//           console.log("user is logged out")
+//         }
+//       });
+     
+// }, [])
   // deleteCookie("favorites");
   // createOrUpdateCookie("favorites", "", 7);
   return (

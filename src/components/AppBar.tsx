@@ -70,7 +70,7 @@ export function SearchAppBar({ inputChangehandler }: SearchAppBarProps) {
           <MenuIcon />
         </IconButton>
         <Button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
           sx={{ my: 2, color: "white", display: "block", font: "times" }}
         >
           Home
