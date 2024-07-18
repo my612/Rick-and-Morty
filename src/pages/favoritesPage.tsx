@@ -1,10 +1,11 @@
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import CharacterCard from "../components/CharacterCard";
 import { SearchAppBar } from "../components/AppBar";
 import PaginationControlled from "../components/BottomPagination";
 import useBackground from "../hooks/background";
 import { readCookie } from "../utils/cookieshelpers";
+import { FavoritesContext } from "../App";
 interface Character {
   id: number;
   name: string;
@@ -16,13 +17,14 @@ interface Character {
 }
 export function FavoritesPage() {
   useBackground("src//assets//rick.jpeg");
-  let favoritesList = JSON.parse(readCookie("favorites") || "[]");
+  // let favoritesList = JSON.parse(readCookie("favorites") || "[]");
   //   const [ids, setIds] = useState(favoritesList);
+  const { favorites } = useContext(FavoritesContext);
   const [characters, setCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
     axios
-      .get(`https://rickandmortyapi.com/api/character/${favoritesList}`)
+      .get(`https://rickandmortyapi.com/api/character/${favorites}`)
       .then((response) => {
         setCharacters(response.data);
         console.log(response.data);
@@ -30,7 +32,7 @@ export function FavoritesPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, [favoritesList]);
+  }, [favorites]);
 
   return (
     <div>

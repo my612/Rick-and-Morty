@@ -1,5 +1,5 @@
 // import { SearchAppBar } from "../components/AppBar";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Character } from "../types/characterProp";
 import { Box, Button, Container, Typography } from "@mui/material";
 import useBackground from "../hooks/background";
@@ -12,6 +12,7 @@ import {
   readCookie,
   removeFavorite,
 } from "../utils/cookieshelpers";
+import { FavoritesContext } from "../App";
 const style = {
   display: "flex",
   flexDirection: "column",
@@ -24,6 +25,7 @@ export const CharacterPage = () => {
   document.body.style.overflow = "hidden";
   const { id } = useParams();
   const [character, setCharacter] = useState<Character>();
+  const { favorites } = useContext(FavoritesContext);
   useEffect(() => {
     // console.log(id);
     if (id) {
@@ -45,9 +47,14 @@ export const CharacterPage = () => {
 
   useEffect(() => {
     // Assuming `item` is the item to check and `getFavoritesList` is a function that retrieves the favorites list
-    const favoritesList = JSON.parse(readCookie("favorites") || "[]");
-    const idIsInFavorites = favoritesList.includes(id); // Ensure this comparison is valid
-    setIsInFavorites(idIsInFavorites);
+    // const favoritesList = JSON.parse(readCookie("favorites") || "[]");
+    // const idIsInFavorites = favoritesList.includes(id); // Ensure this comparison is valid
+    if (id) {
+      const idIsInFavorites = favorites.includes(id);
+      setIsInFavorites(idIsInFavorites);
+    } else {
+      setIsInFavorites(false);
+    }
   }, [id]);
   return (
     <>
@@ -98,18 +105,19 @@ export const CharacterPage = () => {
                 <Button
                   onClick={() => {
                     if (id) {
-                      addFavorites(id);
+                      favorites.push(id);
                     }
-                    let favoritesList = JSON.parse(
-                      readCookie("favorites") || "[]"
-                    );
-                    console.log(favoritesList);
+                    console.log(favorites);
+                    // let favoritesList = JSON.parse(
+                    //   readCookie("favorites") || "[]"
+                    // );
+                    // console.log(favoritesList);
                   }}
                 >
                   Add to favorites
                 </Button>
               )}
-              {isInFavorites && (
+              {/* {isInFavorites && (
                 <Button
                   onClick={() => {
                     if (id) {
@@ -123,7 +131,7 @@ export const CharacterPage = () => {
                 >
                   Remove from favorites
                 </Button>
-              )}
+              )} */}
             </Box>
           </Container>
         ) : (
